@@ -4,8 +4,8 @@ import { routes } from './routes';
 const AppRoutes = () => {
   return (
     <Routes>
-      {routes.map((route, index) => (
-        <Route key={index} path={route.path} element={route.element} />
+      {routes.map(({ path, element }, index) => (
+        <Route key={index} path={path} element={element} />
       ))}
     </Routes>
   );

@@ -6,8 +6,12 @@ const UserService = {
 
   register (user){
     return axios.post( `${UserUrl}/register`, user);
-  }
+  },
   
+  login (user){
+    return axios.post(`${UserUrl}/login`, user);
+  }
+
 };
 
 export default UserService;

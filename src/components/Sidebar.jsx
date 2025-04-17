@@ -1,16 +1,21 @@
+import  useUser from '@/hooks/useUser'; // asegúrate de que esta ruta sea correcta
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = ({ 
-  title = "Dashboard",
+  title = "",
   menuItems = [],
-  onLogout,
   logo,
   collapsible = true,
   initialOpen = true
 }) => {
   const [isOpen, setIsOpen] = useState(initialOpen);
   const location = useLocation();
+  const { logout } = useUser(); // <- aquí accedemos al logout
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <aside className={`bg-gray-800 text-white h-screen flex flex-col transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'}`}>
@@ -42,11 +47,9 @@ const Sidebar = ({
                   location.pathname === item.path ? 'bg-gray-900' : ''
                 }`}
               >
-                <span className="text-xl flex-shrink-0">
-                  {item.icon}
-                </span>
+                <span className="text-xl flex-shrink-0">{item.icon}</span>
                 {isOpen && (
-                  <span className="ml-3 whitespace-nowrap overflow-hidden overflow-ellipsis">
+                  <span className="ml-3 overflow-hidden overflow-ellipsis">
                     {item.label}
                     {item.badge && (
                       <span className="ml-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
@@ -62,16 +65,14 @@ const Sidebar = ({
       </nav>
 
       <div className="p-4 border-t border-gray-700">
-        {onLogout && (
-          <button 
-            onClick={onLogout}
-            className="flex items-center w-full p-2 rounded-lg hover:bg-gray-700 transition-colors"
-          >
-            <span className="text-xl">🔒</span>
-            {isOpen && <span className="ml-3">Cerrar Sesión</span>}
-          </button>
-        )}
-        
+        <button 
+          onClick={handleLogout}
+          className="flex items-center w-full p-2 rounded-lg hover:bg-gray-700 transition-colors"
+        >
+          <span className="text-xl">🔒</span>
+          {isOpen && <span className="ml-3">Cerrar Sesión</span>}
+        </button>
+
         {isOpen && (
           <div className="mt-4 text-xs text-gray-400">
             Versión 1.0.0

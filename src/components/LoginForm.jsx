@@ -5,12 +5,11 @@ const LoginForm = ({
   setEmail,
   password,
   setPassword,
-  errorMessage,
   isLoading,
-  handleSubmit,
+  loginUser,
 }) => {
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={loginUser} className="space-y-6">
       <div className="bg-white py-8 px-6 shadow rounded-lg sm:px-10 max-w-md w-full">
         <fieldset className="border-none p-0 m-0">
           <legend className="text-2xl font-bold text-gray-900 mb-6 text-center">
@@ -23,6 +22,7 @@ const LoginForm = ({
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
             required
           />
           
@@ -32,6 +32,7 @@ const LoginForm = ({
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
             required
           />
 
@@ -54,12 +55,6 @@ const LoginForm = ({
             {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
           </button>
         </fieldset>
-
-        {errorMessage && (
-          <p className="mt-4 text-sm text-red-600 text-center">
-            {errorMessage}
-          </p>
-        )}
       </div>
     </form>
   );

@@ -11,17 +11,18 @@ const useRegister = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-
   const registerUser = (e) => {
     e.preventDefault();
     const user = { name, lastname, number, email, password };
-    console.log("Datos enviados:", user); 
+  
     UserService.register(user)
       .then((response) => {
-        if (response.data) {
-          navigate("/login");
+        const data = response.data;
+  
+        if (data.error) {
+          setErrorMessage(data.error);
         } else {
-          setErrorMessage(response.data.message);
+          navigate("/login"); // ✅ Redirige a login
         }
       })
       .catch((err) => {
@@ -30,7 +31,7 @@ const useRegister = () => {
       });
   };
   
-  
+
   return {
     name,
     setName,

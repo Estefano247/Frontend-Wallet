@@ -4,26 +4,21 @@ import Card from '../components/Card';
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-
-  const menuItems = [
-    { icon: "🏠", label: "Inicio", path: "/dashboard" },
-    { icon: "📦", label: "Proveedores", path: "/dashboard/provider" },
-    { icon: "📊", label: "Servicios", path: "/dashboard/services" },
-  ];
-
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Sidebar 
         title="Dashboard"
-        menuItems={menuItems}
+        menuItems={[
+          { icon: <i className="fas fa-home"></i>, label: "Inicio", path: "/dashboard" },
+          { icon: <i className="fas fa-user"></i>, label: "Proveedores", path: "/dashboard/provider" },
+          { icon: <i className="fas fa-cog"></i>, label: "Servicios", path: "/dashboard/services" },
+        ]}
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(!sidebarOpen)}
-        onLogout={() => {
-          console.log('User logged out');
-        }}
+        onLogout={() => {}}
       />
       
-      <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-20'} p-6`}>
+      <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-5' : 'ml-20'} p-6`}>
         <h1 className="text-2xl font-bold mb-6">Panel de Control</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -39,12 +34,7 @@ const Dashboard = () => {
             description="Gestión de proveedores"
             className="hover:scale-[1.02] transition-transform"
           />
-          <Card
-            icon={<span className="text-4xl mb-4 text-purple-600">🛠️</span>}
-            title="Servicios"
-            description="Administración de servicios"
-            className="hover:scale-[1.02] transition-transform"
-          />
+         
         </div>
       </main>
     </div>
